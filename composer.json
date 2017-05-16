@@ -1,0 +1,21 @@
+{
+    "name": "sugao2013/getui",
+    "description": "getui for Yii2",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension","getui"],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "sugao2013",
+            "email": "2297999137@qq.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "sugao2013\\getui\\": ""
+        }
+    }
+}
