@@ -1,11 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 15-5-9
- * Time: 下午3:12
- */
-require_once(dirname(__FILE__) . '/' . 'LogUtils.php');
+namespace sugao2013\getui\igetui\utils;
+use sugao2013\getui\exception\RequestException;
 class HttpManager
 {
     static $curls = array();

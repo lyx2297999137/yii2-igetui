@@ -1,4 +1,5 @@
 <?php
+namespace sugao2013\getui\igetui\utils;
 /**
  * Created by PhpStorm.
  * User: Administrator

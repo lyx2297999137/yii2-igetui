@@ -1,11 +1,14 @@
 <?php
+namespace sugao2013\getui\igetui\utils;
+use sugao2013\getui\igetui\utils\HttpManager;
+use Exception;
 /**
  * Created by PhpStorm.
  * User: Administrator
  * Date: 15-5-7
  * Time: 下午2:15
  */
- require_once(dirname(__FILE__) . '/' . 'HttpManager.php');
+// require_once(dirname(__FILE__) . '/' . 'HttpManager.php');
 class ApiUrlRespectUtils
 {
     static $appkeyAndFasterHost = array();

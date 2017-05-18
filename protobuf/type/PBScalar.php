@@ -1,0 +1,22 @@
+<?php
+namespace sugao2013\getui\protobuf\type;
+use sugao2013\getui\protobuf\PBMessage;
+class PBScalar extends PBMessage
+{
+	/**
+	 * Set scalar value
+	 */
+	public function set_value($value)
+	{	
+		$this->value = $value;	
+	}
+
+	/**
+	 * Get the scalar value
+	 */
+	public function get_value()
+	{
+		return $this->value;
+	}
+}
+?>
