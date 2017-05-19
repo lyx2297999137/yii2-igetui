@@ -2,7 +2,7 @@
     "name": "sugao2013/getui",
     "description": "getui for Yii2",
     "type": "yii2-extension",
-    "keywords": ["yii2","extension","getui"],
+    "keywords": ["yii2","个推","getui","igetui"],
     "license": "BSD-3-Clause",
     "authors": [
         {
