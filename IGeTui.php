@@ -11,6 +11,7 @@ use sugao2013\getui\igetui\utils\ApiUrlRespectUtils;
 use sugao2013\getui\igetui\utils\LangUtils;
 use sugao2013\getui\IGtBatch;
 
+use sugao2013\getui\igetui\IGtListMessage;
 
 Class IGeTui
 {

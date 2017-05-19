@@ -7,23 +7,23 @@ class MMPMessage extends PBMessage
   public function __construct($reader=null)
   {
     parent::__construct($reader);
-    $this->fields["2"] = "Transparent";
+    $this->fields["2"] = "\\sugao2013\\getui\\igetui\\Transparent";
     $this->values["2"] = "";
-    $this->fields["3"] = "PBString";
+    $this->fields["3"] = "\\sugao2013\\getui\\protobuf\\type\\PBString";
     $this->values["3"] = "";
-    $this->fields["4"] = "PBInt";
+    $this->fields["4"] = "\\sugao2013\\getui\\protobuf\\type\\PBInt";
     $this->values["4"] = "";
-    $this->fields["5"] = "PBInt";
+    $this->fields["5"] = "\\sugao2013\\getui\\protobuf\\type\\PBInt";
     $this->values["5"] = "";
-    $this->fields["6"] = "PBInt";
+    $this->fields["6"] = "\\sugao2013\\getui\\protobuf\\type\\PBInt";
     $this->values["6"] = "";
-    $this->fields["7"] = "PBBool";
+    $this->fields["7"] = "\\sugao2013\\getui\\protobuf\\type\\PBBool";
     $this->values["7"] = "";
     $this->values["7"] = new PBBool();
     $this->values["7"]->value = true;
-    $this->fields["8"] = "PBInt";
+    $this->fields["8"] = "\\sugao2013\\getui\\protobuf\\type\\PBInt";
     $this->values["8"] = "";
-    $this->fields["9"] = "PBString";
+    $this->fields["9"] = "\\sugao2013\\getui\\protobuf\\type\\PBString";
     $this->values["9"] = "";
   }
   function transparent()

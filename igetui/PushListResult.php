@@ -7,7 +7,7 @@ class PushListResult extends PBMessage
   public function __construct($reader=null)
   {
     parent::__construct($reader);
-    $this->fields["1"] = "PushResult";
+    $this->fields["1"] = "\\sugao2013\\getui\\igetui\\PushResult";
     $this->values["1"] = array();
   }
   function results($offset)

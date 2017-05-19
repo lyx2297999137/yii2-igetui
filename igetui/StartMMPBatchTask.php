@@ -7,13 +7,13 @@ class StartMMPBatchTask extends PBMessage
   public function __construct($reader=null)
   {
     parent::__construct($reader);
-    $this->fields["1"] = "MMPMessage";
+    $this->fields["1"] = "\\sugao2013\\getui\\igetui\\MMPMessage";
     $this->values["1"] = "";
-    $this->fields["2"] = "PBInt";
+    $this->fields["2"] = "\\sugao2013\\getui\\protobuf\\type\\PBInt";
     $this->values["2"] = "";
-    $this->fields["3"] = "PBString";
+    $this->fields["3"] = "\\sugao2013\\getui\\protobuf\\type\\PBString";
     $this->values["3"] = "";
-    $this->fields["4"] = "PBString";
+    $this->fields["4"] = "\\sugao2013\\getui\\protobuf\\type\\PBString";
     $this->values["4"] = "";
   }
   function message()

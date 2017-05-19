@@ -3,6 +3,7 @@ namespace sugao2013\getui\igetui\template;
 use sugao2013\getui\igetui\ActionChain;
 use sugao2013\getui\igetui\InnerFiled;
 use sugao2013\getui\igetui\ActionChain_Type;
+use sugao2013\getui\igetui\InnerFiled_Type;
 class IGtLinkTemplate extends IGtBaseTemplate {
 
 	/**

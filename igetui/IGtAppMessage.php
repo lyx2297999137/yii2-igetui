@@ -1,6 +1,5 @@
 <?php
 namespace sugao2013\getui\igetui;
-use sugao2013\getui\igetui\IGtMessage;
 class IGtAppMessage extends IGtMessage{
 	
 	//array('','',..)

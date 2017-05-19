@@ -7,13 +7,13 @@ class ServerNotify extends PBMessage
   public function __construct($reader=null)
   {
     parent::__construct($reader);
-    $this->fields["1"] = "ServerNotify_NotifyType";
+    $this->fields["1"] = "\\sugao2013\\getui\\igetui\\ServerNotify_NotifyType";
     $this->values["1"] = "";
-    $this->fields["2"] = "PBString";
+    $this->fields["2"] = "\\sugao2013\\getui\\protobuf\\type\\PBString";
     $this->values["2"] = "";
-    $this->fields["3"] = "PBString";
+    $this->fields["3"] = "\\sugao2013\\getui\\protobuf\\type\\PBString";
     $this->values["3"] = "";
-    $this->fields["4"] = "PBString";
+    $this->fields["4"] = "\\sugao2013\\getui\\protobuf\\type\\PBString";
     $this->values["4"] = "";
   }
   function type()

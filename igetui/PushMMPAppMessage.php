@@ -7,15 +7,15 @@ class PushMMPAppMessage extends PBMessage
   public function __construct($reader=null)
   {
     parent::__construct($reader);
-    $this->fields["1"] = "MMPMessage";
+    $this->fields["1"] = "\\sugao2013\\getui\\igetui\\MMPMessage";
     $this->values["1"] = "";
-    $this->fields["2"] = "PBString";
+    $this->fields["2"] = "\\sugao2013\\getui\\protobuf\\type\\PBString";
     $this->values["2"] = array();
-    $this->fields["3"] = "PBString";
+    $this->fields["3"] = "\\sugao2013\\getui\\protobuf\\type\\PBString";
     $this->values["3"] = array();
-    $this->fields["4"] = "PBString";
+    $this->fields["4"] = "\\sugao2013\\getui\\protobuf\\type\\PBString";
     $this->values["4"] = array();
-    $this->fields["5"] = "PBString";
+    $this->fields["5"] = "\\sugao2013\\getui\\protobuf\\type\\PBString";
     $this->values["5"] = "";
   }
   function message()
