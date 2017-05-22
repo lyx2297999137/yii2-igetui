@@ -179,8 +179,8 @@ Class IGeTui
         {
             $params["requestId"] = $requestId;
         }
-
         $params["clientData"] = base64_encode($message->get_data()->get_transparent());
+               
         $params["transmissionContent"] = $message->get_data()->get_transmissionContent();
         $params["isOffline"] = $message->get_isOffline();
         $params["offlineExpireTime"] = $message->get_offlineExpireTime();

@@ -4,6 +4,7 @@ use sugao2013\getui\igetui\ActionChain_Type;
 use sugao2013\getui\igetui\ActionChain;
 use sugao2013\getui\igetui\InnerFiled;
 use sugao2013\getui\igetui\AppStartUp;
+use sugao2013\getui\igetui\InnerFiled_Type;
 class IGtNotificationTemplate extends IGtBaseTemplate {
 
 	var $text;

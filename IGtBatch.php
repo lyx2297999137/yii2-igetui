@@ -1,14 +1,9 @@
 <?php
 namespace sugao2013\getui;
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 15-4-9
- * Time: 下午3:45
- */
-//header("Content-Type: text/html; charset=utf-8");
-//require_once(dirname(__FILE__) . '/' . 'IGt.Push.php');
-
+use Exception;
+use sugao2013\getui\igetui\SingleBatchItem;
+use sugao2013\getui\igetui\SingleBatchRequest;
+use sugao2013\getui\igetui\utils\GTConfig;
 class IGtBatch
 {
     var $batchId;
