@@ -1,7 +1,9 @@
 yii2-igetui
 ===
+
 yii2个推
 ---
+
 **配置：**
 
     'components' => [
@@ -12,9 +14,10 @@ yii2个推
     'masterSecret' => 'UZJ3xFDr4l7FtkMfeQKiP8', //你的masterSecret
     'host' => 'http://sdk.open.api.igexin.com/apiex.htm',
     ],
+    
 **使用时配置参数template_type说明：**
 
-    所有推送接口均支持四个消息模板，依次为通知弹框下载模板，通知链接模板，通知透传模板，透传模板
+    所有推送接口均支持四个消息模板，依次为通知弹框下载模板，通知链接模板，通知透传模板，透传模板
     注：IOS离线推送需通过APN进行转发，需填写pushInfo字段，目前仅不支持通知弹框下载功能
     1.点击通知打开应用模板  ====>IGtNotificationTemplateDemo()
     2.点击通知打开网页模板  ====>IGtLinkTemplateDemo()
@@ -22,6 +25,7 @@ yii2个推
     4.透传消息模版    =====>IGtTransmissionTemplateDemo()
 
 ### 1. 对单个用户推送消息：pushMessageToSingle()
+
     $config=[
       'title'=>'title',
       'text'=>'text',
@@ -30,12 +34,9 @@ yii2个推
       ]; 
       $cid='f0d2b92075a0f86e09d049b0d096322b'; 
       Yii::$app->getui->config($config)->pushMessageToSingle($cid);
----
-
 
 ### 2. 对指定列表用户推送消息pushMessageToList()
        
-
     $config=[
        'title'=>'title',
        'text'=>'text',
