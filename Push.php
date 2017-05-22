@@ -5,6 +5,9 @@ namespace sugao2013\getui;
 use sugao2013\getui\igetui\IGtSingleMessage;
 use sugao2013\getui\igetui\IGtTarget;
 use sugao2013\getui\igetui\IGtListMessage;
+use sugao2013\getui\igetui\IGtAppMessage;
+use sugao2013\getui\igetui\utils\AppConditions;
+//use sugao2013\getui\igetui\utils\OptType;
 use yii\base\Component;
 
 /**
@@ -19,6 +22,7 @@ use yii\base\Component;
   3，凡是有用到的类，加上use xxx，因为文件都是自动include的，所以可以直接use 参见sugao2013/getui/Loader
   4，凡是有用到instanceof ,new  ::的就进行命名空间的处理
  */
+
 /**
   配置：
   'components' => [
@@ -32,6 +36,7 @@ use yii\base\Component;
   对单个用户推送消息：pushMessageToSingle()
   对指定列表用户推送消息pushMessageToList()
   批量单推功能pushMessageToSingleBatch()
+  对指定应用群推消息&&应用群推条件交并补功能pushMessageToApp()
  */
 class Push extends Component {
 
@@ -93,21 +98,20 @@ class Push extends Component {
         return $this;
     }
 
-
     /**
      * 
      * 对单个用户推送消息
-     文档：http://docs.getui.com/server/php/push/#1
+      文档：http://docs.getui.com/server/php/push/#1
      * @param type $cid  用户设备的cid号(装个推app会提供) 比如     $cid="f0d2b92075a0f86e09d049b0d096322b"
-     用法示例：
-                $config=[
+      用法示例：
+      $config=[
       'title'=>'title',
       'text'=>'text',
       'url'=>'http://www.baidu.com',
       'template_type'=>2
       ];
       $cid="f0d2b92075a0f86e09d049b0d096322b";
-        Yii::$app->getui->config($config)->pushMessageToSingle($cid);
+      Yii::$app->getui->config($config)->pushMessageToSingle($cid);
      */
     function pushMessageToSingle($cid) {
         $igt = new IGeTui($this->host, $this->appKey, $this->masterSecret);
@@ -130,7 +134,7 @@ class Push extends Component {
             $rep = $igt->pushMessageToSingle($message, $target);
             d($rep);
         } catch (RequestException $e) {
-            $requstId = e.getRequestId();
+            $requstId = e . getRequestId();
             //失败时重发
             $rep = $igt->pushMessageToSingle($message, $target, $requstId);
             d($rep);
@@ -139,18 +143,18 @@ class Push extends Component {
 
     /**
      * 
-     对指定列表用户推送消息
-     文档：http://docs.getui.com/server/php/push/#2
+      对指定列表用户推送消息
+      文档：http://docs.getui.com/server/php/push/#2
      * @param type $cids cid的数组   $cids=['f0d2b92075a0f86e09d049b0d096322b','f0d2b92075a0f86e09d049b0d096322b'];
-       用法示例：
-                $config=[
+      用法示例：
+      $config=[
       'title'=>'title',
       'text'=>'text',
       'url'=>'http://www.baidu.com',
       'template_type'=>2
       ];
-       $cids=['f0d2b92075a0f86e09d049b0d096322b','f0d2b92075a0f86e09d049b0d096322b'];
-        Yii::$app->getui->config($config)->pushMessageToSingle($cids);
+      $cids=['f0d2b92075a0f86e09d049b0d096322b','f0d2b92075a0f86e09d049b0d096322b'];
+      Yii::$app->getui->config($config)->pushMessageToSingle($cids);
      */
     function pushMessageToList($cids) {
         putenv("gexin_pushList_needDetails=true");
@@ -169,6 +173,62 @@ class Push extends Component {
             $targetList[] = $target;
         }
         $rep = $igt->pushMessageToList($contentId, $targetList);
+        d($rep);
+    }
+
+    /**
+     * 对指定应用群推消息&&应用群推条件交并补功能
+     * @param type $conditions
+      手机类型 "phoneType"=>array('ANDROID')
+      地区   "region"=>array('浙江')
+      自定义tag "tag"=>array('haha')
+      'age'=>array("0000", "0010")
+      上面情况一个以及一个以上就可以了。
+      用法示例：
+      $config=[
+      'title'=>'title',
+      'text'=>'text',
+      'url'=>'http://www.baidu.com',
+      'template_type'=>2
+      ];
+      $conditions=[
+      ['name'=>'phoneType','value'=>array('ANDROID'),'opt'=>'or'],
+      ['name'=>'region','value'=>array('浙江','福建'),'opt'=>'and'],
+      ['name'=>'tag','value'=>array('haha'),'opt'=>'not']
+      ];
+      Yii::$app->getui->config($config)->pushMessageToApp($conditions);
+     */
+    function pushMessageToApp($conditions) {
+        $igt = new IGeTui($this->host, $this->appKey, $this->masterSecret);
+        $template = $this->template_var; //IGtLinkTemplateDemo();
+        //个推信息体
+        //基于应用消息体
+        $message = new IGtAppMessage();
+        $message->set_isOffline(true);
+        $message->set_offlineExpireTime(10 * 60 * 1000); //离线时间单位为毫秒，例，两个小时离线为3600*1000*2
+        $message->set_data($template);
+
+        $appIdList = array($this->appId);
+//        $phoneTypeList = array('ANDROID');
+//        $provinceList = array('浙江');
+//        $tagList = array('haha');
+//        $age = array("0000", "0010");
+
+
+        $cdt = new AppConditions();
+        foreach ($conditions as $condition) {
+            $cdt->addCondition($condition['name'], $condition['value'], $this->optType()[$condition['opt']]);
+        }
+//         $cdt->addCondition(AppConditions::PHONE_TYPE, $phoneTypeList, OptType::_OR_);
+//        $cdt->addCondition(AppConditions::PHONE_TYPE, $phoneTypeList);
+//        $cdt->addCondition(AppConditions::REGION, $provinceList);
+//        $cdt->addCondition(AppConditions::TAG, $tagList);
+//        $cdt->addCondition("age", $age);
+
+        $message->set_appIdList($appIdList);
+//        $message->set_conditions($cdt);
+
+        $rep = $igt->pushMessageToApp($message);
         d($rep);
     }
 
@@ -221,6 +281,14 @@ class Push extends Component {
         $target->set_appId($this->appId);
         $target->set_clientId($cid);
         return $target;
+    }
+
+    public function optType() {
+        return [
+            'or' => 0,
+            'and' => 1,
+            'not' => 2,
+        ];
     }
 
     public function messageNoti($config) {
