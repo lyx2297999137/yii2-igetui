@@ -18,10 +18,30 @@ yii2个推
     所有推送接口均支持四个消息模板，依次为通知弹框下载模板，通知链接模板，通知透传模板，透传模板
     注：IOS离线推送需通过APN进行转发，需填写pushInfo字段，目前仅不支持通知弹框下载功能
     1.点击通知打开应用模板  ====>IGtNotificationTemplateDemo()
+        $config=[
+      'title'=>'title',
+      'text'=>'text',
+      'template_type'=>1
+      ];
     2.点击通知打开网页模板  ====>IGtLinkTemplateDemo()
+        $config=[
+      'title'=>'title',
+      'text'=>'text',
+      'url'=>'http://www.baidu.com',
+      'template_type'=>2
+      ];
     3.点击通知弹窗下载模板  ====>IGtNotyPopLoadTemplateDemo()
+         $config=[
+      'notyTitle'=>'notyTitle',
+      'notyContent'=>'notyContent',
+      'popTitle'=>'popTitle',
+      'popContent'=>'popContent',
+      'template_type'=>3
+      ];
     4.透传消息模版    =====>IGtTransmissionTemplateDemo()
-
+           $config=[
+      'template_type'=>4
+      ];
 ### 1. 对单个用户推送消息：pushMessageToSingle()
 
     $config=[
