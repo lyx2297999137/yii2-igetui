@@ -43,7 +43,7 @@ yii2个推
       'template_type'=>4
       ];
 
-#推送
+# 推送
 
 ### 1. 对单个用户推送消息：pushMessageToSingle()
 
@@ -108,9 +108,9 @@ yii2个推
        用法
     Yii::$app->getui->pushMessageToSingleBatch($configs);
 
-#其它接口
+# 其它接口
 
-##1别名
+## 1别名
 
 ### 1. 对指定用户设置tag属性setTag()
     
