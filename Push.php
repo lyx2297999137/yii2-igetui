@@ -7,7 +7,6 @@ use sugao2013\getui\igetui\IGtTarget;
 use sugao2013\getui\igetui\IGtListMessage;
 use sugao2013\getui\igetui\IGtAppMessage;
 use sugao2013\getui\igetui\utils\AppConditions;
-//use sugao2013\getui\igetui\utils\OptType;
 use yii\base\Component;
 
 /**
@@ -37,6 +36,8 @@ use yii\base\Component;
   对指定列表用户推送消息pushMessageToList()
   批量单推功能pushMessageToSingleBatch()
   对指定应用群推消息&&应用群推条件交并补功能pushMessageToApp()
+  对指定用户设置tag属性setTag()
+  获取指定用户的tag属性getUserTags()
  */
 class Push extends Component {
 
@@ -66,17 +67,20 @@ class Push extends Component {
     /**
      * 
      * @param type $config
+      1.点击通知打开应用模板  ====>IGtNotificationTemplateDemo()
       $config=[
       'title'=>'title',
       'text'=>'text',
       'template_type'=>1
       ];
+      2.点击通知打开网页模板  ====>IGtLinkTemplateDemo()
       $config=[
       'title'=>'title',
       'text'=>'text',
       'url'=>'http://www.baidu.com',
       'template_type'=>2
       ];
+      3.点击通知弹窗下载模板  ====>IGtNotyPopLoadTemplateDemo()
       $config=[
       'notyTitle'=>'notyTitle',
       'notyContent'=>'notyContent',
@@ -84,6 +88,7 @@ class Push extends Component {
       'popContent'=>'popContent',
       'template_type'=>3
       ];
+      4.透传消息模版    =====>IGtTransmissionTemplateDemo()
       $config=[
       'template_type'=>4
       ];
@@ -169,7 +174,10 @@ class Push extends Component {
         $contentId = $igt->getContentId($message);
         $targetList = [];
         foreach ($cids as $cid) {
-            $target = $this->setIGtTarget($cid);
+//            $target = $this->setIGtTarget($cid);
+            $target = new IGtTarget();
+            $target->set_appId($this->appId);
+            $target->set_clientId($cid);
             $targetList[] = $target;
         }
         $rep = $igt->pushMessageToList($contentId, $targetList);
@@ -216,8 +224,13 @@ class Push extends Component {
 
 
         $cdt = new AppConditions();
+        $optType = [
+            'or' => 0,
+            'and' => 1,
+            'not' => 2,
+        ];
         foreach ($conditions as $condition) {
-            $cdt->addCondition($condition['name'], $condition['value'], $this->optType()[$condition['opt']]);
+            $cdt->addCondition($condition['name'], $condition['value'], $optType[$condition['opt']]);
         }
 //         $cdt->addCondition(AppConditions::PHONE_TYPE, $phoneTypeList, OptType::_OR_);
 //        $cdt->addCondition(AppConditions::PHONE_TYPE, $phoneTypeList);
@@ -260,7 +273,19 @@ class Push extends Component {
         $batch->setApiUrl($this->host);
 
         foreach ($configs as $config) {
-            $batch->add($this->messageNoti($config), $this->targetNoti($config['cid']));
+            //个推信息体
+            $this->config($config);
+            $templateNoti = $this->template_var;
+            $messageNoti = new IGtSingleMessage();
+            $messageNoti->set_isOffline(true); //是否离线
+            $messageNoti->set_offlineExpireTime(12 * 1000 * 3600); //离线时间
+            $messageNoti->set_data($templateNoti); //设置推送消息类型
+            //$messageNoti->set_PushNetWorkType(1);//设置是否根据WIFI推送消息，1为wifi推送，0为不限制推送
+            $targetNoti = new IGtTarget();
+            $targetNoti->set_appId($this->appId);
+            $targetNoti->set_clientId($config['cid']);
+            $batch->add($messageNoti, $targetNoti);
+//            $batch->add($this->messageNoti($config), $this->targetNoti($config['cid']));
         }
 
         //$igt->connect();
@@ -274,40 +299,30 @@ class Push extends Component {
     }
 
     /**
-     * 下面都是一些乱七八糟的方法
+     * 对指定用户设置tag属性
+     * @param type $cid
+     * @param type $tagList
+      用法
+      Yii::$app->getui->setTag('f0d2b92075a0f86e09d049b0d096322b’,array('', '中文', 'English'));
      */
-    public function setIGtTarget($cid) {
-        $target = new IGtTarget();
-        $target->set_appId($this->appId);
-        $target->set_clientId($cid);
-        return $target;
+    function setTag($cid = '', $tagList = []) {
+        $igt = new IGeTui($this->host, $this->appKey, $this->masterSecret);
+        //$tagList = array('', '中文', 'English');
+        $rep = $igt->setClientTag($this->appId, $cid, $tagList);
+        d($rep);
     }
 
-    public function optType() {
-        return [
-            'or' => 0,
-            'and' => 1,
-            'not' => 2,
-        ];
-    }
-
-    public function messageNoti($config) {
-        //个推信息体
-        $this->config($config);
-        $templateNoti = $this->template_var;
-        $messageNoti = new IGtSingleMessage();
-        $messageNoti->set_isOffline(true); //是否离线
-        $messageNoti->set_offlineExpireTime(12 * 1000 * 3600); //离线时间
-        $messageNoti->set_data($templateNoti); //设置推送消息类型
-        //$messageNoti->set_PushNetWorkType(1);//设置是否根据WIFI推送消息，1为wifi推送，0为不限制推送
-        return $messageNoti;
-    }
-
-    public function targetNoti($cid) {
-        $targetNoti = new IGtTarget();
-        $targetNoti->set_appId($this->appId);
-        $targetNoti->set_clientId($cid);
-        return $targetNoti;
+    /**
+     * 获取指定用户的tag属性
+     * @param type $cid
+      用法：
+      Yii::$app->getui->getUserTags('f0d2b92075a0f86e09d049b0d096322b');
+     */
+    function getUserTags($cid = '') {
+        $igt = new IGeTui($this->host, $this->appKey, $this->masterSecret);
+        $rep = $igt->getUserTags($this->appId, $cid);
+        //$rep.connect();
+        d($rep);
     }
 
 }

@@ -42,6 +42,9 @@ yii2个推
            $config=[
       'template_type'=>4
       ];
+
+#推送
+
 ### 1. 对单个用户推送消息：pushMessageToSingle()
 
     $config=[
@@ -105,3 +108,16 @@ yii2个推
        用法
     Yii::$app->getui->pushMessageToSingleBatch($configs);
 
+#其它接口
+
+##1别名
+
+### 1. 对指定用户设置tag属性setTag()
+    
+    用法
+    Yii::$app->getui->setTag('f0d2b92075a0f86e09d049b0d096322b’,array('', '中文', 'English'));
+
+### 2. 获取指定用户的tag属性getUserTags()
+    
+    用法
+    Yii::$app->getui->getUserTags('f0d2b92075a0f86e09d049b0d096322b');
