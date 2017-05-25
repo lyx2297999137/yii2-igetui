@@ -39,9 +39,10 @@ yii2个推
       'template_type'=>3
       ];
     4.透传消息模版    =====>IGtTransmissionTemplateDemo()
-           $config=[
-      'template_type'=>4
-      ];
+        $config=[
+            'content'=>'我传的内容哦',
+            'template_type'=>4
+        ];
 
 # 推送
 

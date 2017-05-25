@@ -165,7 +165,7 @@ class Template {
         $template->set_appId($this->appId); //应用appid
         $template->set_appkey($this->appKey); //应用appkey
         $template->set_transmissionType(1); //透传消息类型
-        $template->set_transmissionContent("测试离线ddd"); //透传内容
+        $template->set_transmissionContent($config['content']); //透传内容
         //$template->set_duration(BEGINTIME,ENDTIME); //设置ANDROID客户端在此时间区间内展示消息
         //APN简单推送
 //        $template = new IGtAPNTemplate();
@@ -183,7 +183,7 @@ class Template {
         //APN高级推送
         $apn = new IGtAPNPayload();
         $alertmsg = new DictionaryAlertMsg();
-        $alertmsg->body = "body";
+        $alertmsg->body = $config['content'];
         $alertmsg->actionLocKey = "ActionLockey";
         $alertmsg->locKey = "LocKey";
         $alertmsg->locArgs = array("locargs");

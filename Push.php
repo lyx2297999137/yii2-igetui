@@ -90,6 +90,7 @@ class Push extends Component {
       ];
       4.透传消息模版    =====>IGtTransmissionTemplateDemo()
       $config=[
+      'content'=>'我传的内容哦',
       'template_type'=>4
       ];
      * @return $this
