@@ -138,12 +138,12 @@ class Push extends Component {
 //    $target->set_alias(Alias);
         try {
             $rep = $igt->pushMessageToSingle($message, $target);
-            d($rep);
+            return $rep;
         } catch (RequestException $e) {
-            $requstId = e . getRequestId();
+            $requstId = e.getRequestId();
             //失败时重发
             $rep = $igt->pushMessageToSingle($message, $target, $requstId);
-            d($rep);
+            return $rep;
         }
     }
 
@@ -182,7 +182,7 @@ class Push extends Component {
             $targetList[] = $target;
         }
         $rep = $igt->pushMessageToList($contentId, $targetList);
-        d($rep);
+        return $rep;
     }
 
     /**
@@ -243,7 +243,7 @@ class Push extends Component {
 //        $message->set_conditions($cdt);
 
         $rep = $igt->pushMessageToApp($message);
-        d($rep);
+        return $rep;
     }
 
     /**
@@ -292,10 +292,10 @@ class Push extends Component {
         //$igt->connect();
         try {
             $rep = $batch->submit();
-            d($rep);
+            return $rep;
         } catch (Exception $e) {
             $rep = $batch->retry();
-            d($rep);
+            return $rep;
         }
     }
 
@@ -310,7 +310,7 @@ class Push extends Component {
         $igt = new IGeTui($this->host, $this->appKey, $this->masterSecret);
         //$tagList = array('', '中文', 'English');
         $rep = $igt->setClientTag($this->appId, $cid, $tagList);
-        d($rep);
+        return $rep;
     }
 
     /**
@@ -323,7 +323,7 @@ class Push extends Component {
         $igt = new IGeTui($this->host, $this->appKey, $this->masterSecret);
         $rep = $igt->getUserTags($this->appId, $cid);
         //$rep.connect();
-        d($rep);
+        return $rep;
     }
 
 }
