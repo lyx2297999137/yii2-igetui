@@ -90,6 +90,7 @@ class Push extends Component {
       ];
       4.透传消息模版    =====>IGtTransmissionTemplateDemo()
       $config=[
+      'type'=>'2', //收到消息是否立即启动应用，1为立即启动，2则广播等待客户端自启动
       'content'=>'我传的内容哦',
       'template_type'=>4
       ];
